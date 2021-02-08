@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Stock Trading Simulator</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="all,follow" />
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <!-- Font Awesome CSS-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <!-- Google fonts - Popppins for copy-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,800"
+    />
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet" />
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css" />
+    
+  </head>
+  <body>
+    <!-- navbar-->
+    <header class="header">
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+        <a
+          href="index.html"
+          class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"
+          ><i class="fas fa-balance-scale"></i></a
+        ><a
+          href="index.html"
+          class="navbar-brand font-weight-bold text-uppercase text-base"
+          >Stock Trading Simulator</a
+        >
+        <ul class="ml-auto list-unstyled w-25 mb-0 mr-4">
+          <li class="nav-item">
+            <form id="searchForm" class="ml-auto d-lg-block">
+              <div class="form-group position-relative mb-0">
+                <button
+                  type="submit"
+                  style="top: -3px; left: 0"
+                  class="position-absolute bg-white border-0 p-0"
+                >
+                  <i class="o-search-magnify-1 text-gray text-lg"></i>
+                </button>
+                <input
+                  type="search"
+                  placeholder="Search symbol or company"
+                  class="form-control form-control-sm border no-shadow pl-4 text-blue"
+                  id="searchField"
+                />
+              </div>
+            </form>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="d-flex align-items-stretch">
+      <!-- MAIN CONTENT  -->
+      <div class="page-holder w-100 d-flex flex-wrap">
+        <div class="container px-xl-5">
+          <section class="py-4">
+            <div class="row mb-4">
+              <div class="col-lg-8 mb-4 mb-lg-0">
+                <div class="card">
+                  <div id="chartHeader"  class="card-header">
+                    <div class="row">
+                      <div class="col-6" id="stockInfo">
+                        <h2 class="h5 text-uppercase">
+                          Good Day, Investor
+                        </h2>
+                        <h2 class="h4 text-uppercase">
+                          "Do not put all your eggs in one basket."
+                        </h2>
+                        <h2 class="h6 text-uppercase">
+                          <i class="fas fa-caret-up mr-1"></i>Warren Buffet
+                        </h2>
+                        
+                      </div>
+                      <div class="col-6">
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <!-- SEARCH RESULTS -->
+                    <div class="list-group shadow" id="searchResults">
+                      
+                    </div>
+                    <!-- END OF SEARCH RESULTS -->
+                    
+                    <div class="chart-holder mt-5 mb-2">
+                      <div
+                        id="chart-container"
+                        style="width: 100%; height: 425px"
+                      ></div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <button
+                        class="btn btn-success ml-3 d-none btn-lg"
+                        id="buyBtn"
+                        data-toggle="modal"
+                        data-target="#transaction"
+                      >
+                        BUY
+                      </button>
+                      <button
+                        class="btn btn-danger btn-lg ml-3 d-none"
+                        id="sellBtn"
+                        data-toggle="modal"
+                        data-target="#transaction"
+                      >
+                        SELL
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- MODALS FOR TRANSACTION -->
+              <div
+                class="modal fade"
+                id="transaction"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5
+                        class="modal-title text-gray text-uppercase"
+                        id="transactionType"
+                      >
+                        Review Order
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form id="transactionModal">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label id="label" for="stockChoice"
+                            >Symbol - Quantity Owned</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            value="abc"
+                            id="stockChoice"
+                            disabled
+                          />
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="marketPrice">Market Price</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            value="$102.23"
+                            id="marketPrice"
+                            disabled
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="quantity">Quantity</label>
+                          <input
+                            type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                            class="form-control"
+                            placeholder="Enter quantity of shares to trade"
+                            id="quantity"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="totalCost"
+                            >Estimated Transaction Value</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            value="$0"
+                            id="totalCost"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-primary text-uppercase"
+                          id="executeOrder"
+                        >
+                          Execute
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-secondary text-uppercase"
+                          data-dismiss="modal"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- END TRANSACTION MODAL -->
+              <!-- MODALS FOR TRENDS -->
+              <div
+                class="modal fade"
+                id="trendsModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-gray" id="exampleModalLabel">
+                        Latest Analyst Recommendation Trends
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- CONTENT -->
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary text-uppercase"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END MODAL -->
+              <!-- FAVORITE STOCKS SECTION  -->
+              <div class="col-lg-4">
+                <div class="card mb-5 mb-lg-0">
+                  <div class="card-header rounded">
+                    <h2 class="h6 mb-0 text-uppercase"></h2>
+                    <button class="btn btn-lg btn-danger" id="resetBtn">
+                      Reset
+                    </button>
+                  </div>
+                  <!-- <div class="card-body" id="favList">
+                    
+                  </div> -->
+                </div>
+                <!-- NEW PORTFOLIO MANAGEMENT -->
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-12" id="portfolioInfo">
+                        <div class="bg-white bg-hover-gradient-blue shadow roundy px-4 py-3">
+                        <p class="h5 text-uppercase text-gray-500">
+                          Portfolio Value
+                        </p>
+                        <h5 class="h5 text-uppercase" id="balance">$0</h5>
+                      </div>
+                      <div class="bg-white bg-hover-gradient-blue shadow roundy px-4 py-3 mt-3">
+                        <p class=" h5 text-uppercase text-gray-500">Cash</p>
+                        <h5 class="h5 text-uppercase" id="cash">$0</h5>
+                      </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body" id="portfolioItems">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="pt-1 pb-5 ">
+            <div class="row">
+              <!-- TRANSACTION HISTORY (DEBIT) -->
+              <div class="col-12 ">
+                <div class="card mb-5 mb-lg-0">
+                  <div class="card-header">
+                    <h2 class="h6 mb-0 text-uppercase">Transaction history</h2>
+                    
+                      
+                  </div>
+                  <div class="card-body " id="transactionHistory">
+                    <div id="transactionTable"></div>
+                  </div>
+                </div>
+              </div>
+              
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <footer
+          class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100"
+        >
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6 text-center text-md-left text-primary">
+                <p class="mb-2 mb-md-0">Power Rangers from DCI &copy; 2020</p>
+              </div>
+              <div class="col-md-6 text-center text-md-right text-gray-400">
+                <p class="mb-0">
+                  Design by
+                  <a
+                    href="https://bootstrapious.com/admin-templates"
+                    class="external text-gray-400"
+                    >Bootstrapious</a
+                  >
+                </p>
+                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

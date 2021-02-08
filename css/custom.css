@@ -1,0 +1,37 @@
+/* your styles go here */
+
+#portfolioItems {
+  width: 328px;
+  height: 300px;
+  overflow: auto;
+}
+
+#transactionHistory {
+  width: 100%;
+}
+#transactionHistory thead th {
+  position: sticky;
+  top: -1px;
+  background-color: rgba(184, 180, 179);
+}
+
+#transactionTable {
+  overflow: auto;
+  height: 250px;
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+#chartHeader {
+  background-color: #9191dc;
+}
+
+#stockInfo h2 {
+  color: white;
+}
+
+.form-control::placeholder {
+  color: blue;
+  opacity: 1; /* Firefox */
+}
