@@ -1,0 +1,9 @@
+export default class Config {
+  static FINN_HUB_TOKEN = "INSERT YOUR API KEY HERE";
+  static IS_CACHE_STOCK_ENABLED = false;
+  static IS_MOCK_STOCK_ENABLED = false;
+
+  static ALPHA_VANtAGE_TOKEN = "INSERT YOUR API KEY HERE";
+  static IS_CACHE_SEARCH_ENABLED = false;
+  static IS_MOCK_SEARCH_ENABLED = false;
+}
